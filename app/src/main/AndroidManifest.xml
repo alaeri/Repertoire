@@ -22,11 +22,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.edit.AddContactActivity" />
         <activity android:name=".ui.DeleteActivity" />
@@ -41,8 +37,16 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <activity android:name=".ui.login.LoginActivity"
+            android:theme="@style/LoginTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".ui.DetailContactActivity" />
-        <activity android:name=".ui.MessageListActivity"/>
+        <activity android:name=".ui.message.MessageListActivity"/>
         <activity android:name=".ui.edit.EditContactActivity"></activity>
 
         <service

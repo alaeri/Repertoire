@@ -1,4 +1,4 @@
-package com.reclycer.repertoire.ui
+package com.reclycer.repertoire.ui.message
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders

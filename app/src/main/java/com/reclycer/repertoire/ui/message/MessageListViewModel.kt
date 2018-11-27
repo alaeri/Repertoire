@@ -1,4 +1,4 @@
-package com.reclycer.repertoire.ui
+package com.reclycer.repertoire.ui.message
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -18,11 +18,13 @@ class MessageListViewModel: ViewModel() {
         get() = repertoireApp.dataManager
 
     val currentMessageList = MutableLiveData<List<MessageWrapper>>()
+    val currentUploadStatus = MutableLiveData<UploadStatus>()
 
     fun prepare(application: RepertoireApp, toIdContact: String) {
         this.toIdContact = toIdContact
         repertoireApp = application
         updateLiveDataFromDB()
+        currentUploadStatus.value = UploadStatus.Empty
     }
 
     private lateinit var toIdContact: String
@@ -40,16 +42,19 @@ class MessageListViewModel: ViewModel() {
         messageToSend.date = Calendar.getInstance().toString()
         messageToSend.body = messageBody
 
+        currentUploadStatus.value = UploadStatus.InProgress
         dataManager.createMessage(messageToSend)
                 .observeOn(AndroidSchedulers.mainThread()).subscribe({ //edit_message.text = null
-                    refreshFromNetwor()
+                    refreshFromNetwork()
+                    currentUploadStatus.value = UploadStatus.Sent
     }, {
+                    currentUploadStatus.value = UploadStatus.Error
       //  Toast.makeText(this@MessageListActivity, "Failed to create message", Toast.LENGTH_SHORT).show()
     })
     }
 
 
-    fun refreshFromNetwor() {
+    fun refreshFromNetwork() {
         dataManager.refreshMessage()
                 .observeOn(AndroidSchedulers.mainThread()).toCompletable().subscribe({
                     updateLiveDataFromDB()

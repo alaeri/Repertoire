@@ -1,4 +1,4 @@
-package com.reclycer.repertoire.ui
+package com.reclycer.repertoire.ui.message
 
 import com.reclycer.repertoire.data.Contact
 import com.reclycer.repertoire.data.Message

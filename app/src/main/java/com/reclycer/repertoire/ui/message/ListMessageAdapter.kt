@@ -1,4 +1,4 @@
-package com.reclycer.repertoire.ui
+package com.reclycer.repertoire.ui.message
 
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
@@ -16,7 +16,7 @@ class ListMessageAdapter: RecyclerView.Adapter<ListMessageAdapter.MyViewHolder>(
     val messageList: MutableList<MessageWrapper> = ArrayList()
 
 
-    override fun onBindViewHolder(holder: ListMessageAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val message = messageList!![position]
         holder.display(message)
     }
