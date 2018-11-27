@@ -1,0 +1,17 @@
+{
+  "name": "contacts-api",
+  "version": "1.0.0",
+  "description": "small contacts api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.14.12"
+  },
+  "dependencies": {
+    "fcm-node": "^1.2.1"
+  }
+}
