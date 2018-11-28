@@ -6,11 +6,9 @@ androidExtensions {
     experimental = true
 }
 
-
-
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 24
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.reclycer.repertoire"
         minSdkVersion 17
@@ -18,7 +16,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -29,7 +26,6 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:appcompat-v7:$android_support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     // alternatively - just ViewModel
     implementation "android.arch.lifecycle:viewmodel:1.1.1"// use -ktx for Kotlin
@@ -47,10 +43,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile "com.android.support:appcompat-v7:$android_support_version"
+    compile 'com.android.support:appcompat-v7:24.2.0'
     testCompile 'junit:junit:4.12'
-    compile "com.android.support:recyclerview-v7:$android_support_version"
-    compile "com.android.support:cardview-v7:$android_support_version"
+    compile 'com.android.support:recyclerview-v7:24.2.0'
+    compile 'com.android.support:cardview-v7:24.2.0'
     compile files('libs/ormlite-android-5.0.jar')
     compile files('libs/ormlite-core-5.0.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -63,5 +59,3 @@ dependencies {
 repositories {
     mavenCentral()
 }
-
-apply plugin: 'com.google.gms.google-services'
