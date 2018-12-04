@@ -1,10 +1,13 @@
 const express        = require('express');
-const bodyParser     = require('body-parser');
 const app            = express();
 const restfulMongoose =require('restful-mongoose');
 const bodyparser  =require('body-parser');
+const FCM = require('fcm-node');
 //Import the mongoose module
 var mongoose = require('mongoose');
+const {OAuth2Client} = require('google-auth-library');
+const uuidv4 = require('uuid/v4');
+
 
 //Set up default mongoose connection
 var mongoDB = 'mongodb://127.0.0.1/api-contacts';
@@ -14,6 +17,11 @@ mongoose.Promise = global.Promise;
 //Get the default connection
 var db = mongoose.connection;
 
+
+const CLIENT_ID = process.env.repertoireClientId;
+console.log(`client id: ${CLIENT_ID}`)
+const client = new OAuth2Client(CLIENT_ID);
+
 //Bind connection to error event (to get notification of connection errors)
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
@@ -22,12 +30,34 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const Contact = require('./models/contact');
 const Message = require('./models/message');
 
-const FCM = require('fcm-node');
+
 const serverKey = process.env.repertoireServerKey; //put your server key here
 const fcm = new FCM(serverKey);
 
 app.use(bodyparser.urlencoded());
 // create and export a Router, mount it anywhere via .use()
+
+app.post('/authorize', async function(req, res){
+	const ticket = await client.verifyIdToken({
+      idToken: req.body.idToken,
+      audience: CLIENT_ID,  // Specify the CLIENT_ID of the app that accesses the backend
+      // Or, if multiple clients access the backend:
+      //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+  });
+  const payload = ticket.getPayload();
+  console.log(`payload: ${JSON.stringify(payload)}`)
+  const body = {
+  	access_token: uuidv4(),
+  	email: payload.email,
+  	picture: payload.picture,
+  	first_name: payload.given_name,
+  	last_name: payload.family_name
+  }; 
+  console.log(`body: ${JSON.stringify(body)}`)
+  const contact = await Contact.create(body)
+  res.send(JSON.stringify(contact))
+})
+
 app.use('/contact', restfulMongoose('contact',Contact));
 app.get('/contact2', function(req, res) {
     Contact.find(function(err, contacts){

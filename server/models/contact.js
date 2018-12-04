@@ -4,8 +4,9 @@ var mongoose = require('mongoose');
 //Define a schema
 var Schema = mongoose.Schema;
 
-var ContactSchema = new Schema(
-    {
+var ContactSchema = new Schema({
+	access_token: String,
+	picture: String,
 	first_name: String,
 	last_name: String,
 	living: Boolean,

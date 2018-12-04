@@ -12,6 +12,12 @@
     "nodemon": "^1.14.12"
   },
   "dependencies": {
-    "fcm-node": "^1.2.1"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "fcm-node": "^1.2.1",
+    "google-auth-library": "^2.0.1",
+    "mongoose": "^5.3.14",
+    "restful-mongoose": "^1.0.1",
+    "uuid": "^3.3.2"
   }
 }
